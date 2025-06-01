@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import {
   View,
@@ -10,6 +9,7 @@ import {
   ActivityIndicator,
   Alert,
   Image,
+  Switch,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
@@ -17,11 +17,14 @@ import { useNavigation } from '@react-navigation/native';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '../../integrations/supabase/client';
 import { useAuth } from '../../contexts/AuthContext';
+import { useTheme } from '../../contexts/ThemeContext';
 import * as ImagePicker from 'expo-image-picker';
 
 export default function ProfileScreen() {
   const navigation = useNavigation();
-  const { user } = useAuth();
+  const auth = useAuth();
+  const user = auth.user || null;
+  const { isDarkMode, toggleTheme } = useTheme();
   const queryClient = useQueryClient();
 
   const [formData, setFormData] = useState({
@@ -219,6 +222,14 @@ export default function ProfileScreen() {
             />
           </View>
         </View>
+
+        <View style={styles.themeToggleSection}>
+          <Text style={styles.themeToggleLabel}>Dark Mode</Text>
+          <Switch
+            value={isDarkMode}
+            onValueChange={toggleTheme}
+          />
+        </View>
       </ScrollView>
 
       <View style={styles.footer}>
@@ -342,5 +353,19 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 16,
     fontWeight: '600',
+  },
+  themeToggleSection: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    padding: 16,
+    backgroundColor: 'white',
+    borderTopWidth: 1,
+    borderTopColor: '#E5E7EB',
+  },
+  themeToggleLabel: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#111827',
   },
 });

@@ -1,4 +1,3 @@
-
 import React from 'react';
 import {
   View,
@@ -51,7 +50,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
         <Image 
           source={{ uri: getProductImageUrl() }}
           style={styles.image}
-          defaultSource={require('../assets/placeholder.png')}
+          defaultSource={require('../../assets/placeholder.png')}
         />
         
         {onAddToWishlist && (

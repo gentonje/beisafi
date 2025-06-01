@@ -147,8 +147,8 @@ export default function ProductsScreen() {
           refreshControl={
             <RefreshControl refreshing={isLoading} onRefresh={refetch} />
           }
-          numColumns={2}
-          columnWrapperStyle={styles.row}
+          numColumns={1} // Changed to display one item per row
+          columnWrapperStyle={null} // Removed column styling for single column
           showsVerticalScrollIndicator={false}
         />
       )}
